@@ -5,9 +5,9 @@ function copyObj(obj)	{
 
 /* */
 
-var POINT = 1;
-var VECTOR = 0;
-var COLOR = 2, COLOUR = 2;
+let POINT = 1;
+let VECTOR = 0;
+vlet COLOR = 2, COLOUR = 2;
 
 /*
 	point
@@ -46,13 +46,11 @@ function magnitude(vector)	{ // calc the magnitude of an input vector (a tuple w
 
 function normalize(v)	{
 	
-	var mv
-	
+	let mv;
 	if(!(mv = magnitude(v)))
-		return v
-	
-	var mv 
-	return new tuple(	v.x / mv,
+		return v;
+ 
+	return new tuple( 	v.x / mv,
 						v.y / mv,
 						v.z / mv,
 						0);
@@ -60,23 +58,23 @@ function normalize(v)	{
 
 function dot(a, b)	{
 	
-	return	a.x * b.x +
-			a.y * b.y +
-			a.z * b.z +
-			a.w * b.w;
+	return	(a.x * b.x) +
+			(a.y * b.y) +
+			(a.z * b.z) +
+			(a.w * b.w);
 }
 
 function cross(a, b)	{ // THE ORDER OF THE OPERANDS MATTERS
 
-	return vector(	a.y * b.z - a.z * b.y,
-					a.z * b.x - a.x * b.z,
-					a.x * b.y - a.y * b.x);
+	return vector(	(a.y * b.z) - a.z * b.y,
+					(a.z * b.x) - a.x * b.z,
+					(a.x * b.y) - a.y * b.x);
 }
 
-var UID = 1
+let UID = 1;
 function GetUID()	{
 
-		return UID++
+		return UID++;
 }
 
 
@@ -98,14 +96,12 @@ function compsds()	{
 	this.inside = false;
 	
 	this.casts_shadow = true;
-
 }
-
 
 
 function prepare_computations(i, r, xs)	{
 	
-	var comps = new compsds();
+	let comps = new compsds();
 	
 	comps.t = i.t;
 	comps.object = i.object;
@@ -114,10 +110,10 @@ function prepare_computations(i, r, xs)	{
 	
 	//console.log("core.js::prepare_computations()::=comps.point.x:"+comps.point.x+", point.y:"+comps.point.y+", point.z:"+comps.point.z+"\n")
 	/*
-					var point_ = _position(r, h.t)
-				var normal_ = normal_at(h.object, point_)
+					let point_ = _position(r, h.t)
+				let normal_ = normal_at(h.object, point_)
 			
-				var eye = negate(r.direction)
+				let eye = negate(r.direction)
 			
 				color_ = lighting(h.object.material, l, { id: 'Dave' }, point_, eye, normal_, 0)
 	*/
@@ -139,11 +135,11 @@ function prepare_computations(i, r, xs)	{
 	if (xs == undefined || xs.length == 0)
 		xs = [i]
 	*/
-	var containers = []
+	let containers = []
 	
-	for (var a = 0; a < xs.length; a++)	{
+	for (let a = 0; a < xs.length; a++)	{
 		
-		var curr_i = xs[a];
+		let curr_i = xs[a];
 
 		if (curr_i == i)
 			if (containers.length == 0)
@@ -152,55 +148,56 @@ function prepare_computations(i, r, xs)	{
 				comps.n1 = containers[containers.length-1].material.refractive_index
 		
 		// if containers includes i.object then
-		var indexOfObj;
+		let indexOfObj;
 		if ((indexOfObj = containers.indexOf(curr_i.object)) != -1)
-			containers.splice(indexOfObj, 1)
+			containers.splice(indexOfObj, 1);
 		else
-			containers.push(curr_i.object)
+			containers.push(curr_i.object);
 		
 		if (curr_i == i)	{
 			
 			if (containers.length == 0)
 				comps.n2 = 1.0
 			else
-				comps.n2 = containers[containers.length-1].material.refractive_index
+				comps.n2 = containers[containers.length-1].material.refractive_index;
 		
 			break;
 		}
 	}
 
-	return comps
+	return comps;
 }
 
 function removeNullEntries(arr)	{
 	
-	var res = []
-	for (var a = 0; a < arr.length; a++)
+	let res = [];
+	for (let a = 0; a < arr.length; a++)
 		if (arr[a] != null)
-			res.push(arr[a])
+			res.push(arr[a]);
 	
-	return res
+	return res;
 }
 
 function removeNullEntries2(arr)	{
 	
-	var e;
+	let e;
 	while((e = arr.indexOf(null)) !== -1)
-		arr.splice(e, 1)
+		arr.splice(e, 1);
 	
-	return arr
+	return arr;
 }
 
 function convHexClr(hexCodeStr)	{
 	
-	var r = hexCodeStr.substring(0,2)
-	var g = hexCodeStr.substring(2,4)
-	var b = hexCodeStr.substring(4,6)
+	let r = hexCodeStr.substring(0,2);
+	let g = hexCodeStr.substring(2,4);
+	let b = hexCodeStr.substring(4,6);
 	
-	r = parseInt(r, 16)
-	g = parseInt(g, 16)
-	b = parseInt(b, 16)
+	r = parseInt(r, 16);
+	g = parseInt(g, 16);
+	b = parseInt(b, 16);
 	
 	//return { r: r/255, g: g/255, b: b/255 }
-	return colour(r/255, g/255, b/255)
+	return colour(r/255, g/255, b/255);
 }
+
