@@ -7,7 +7,7 @@ function copyObj(obj)	{
 
 let POINT = 1;
 let VECTOR = 0;
-vlet COLOR = 2, COLOUR = 2;
+let COLOR = 2, COLOUR = 2;
 
 /*
 	point
